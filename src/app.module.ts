@@ -4,6 +4,9 @@ import { ApolloDriver, ApolloDriverConfig } from '@nestjs/apollo';
 import { AppModuleResolver } from './app.resolver';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { ConfigModule, ConfigService } from '@nestjs/config';
+import { UsersModule } from './users/users.module';
+import { DepartmentsModule } from './departments/departments.module';
+import { AuthModule } from './auth/auth.module';
 
 @Module({
   imports: [
@@ -29,6 +32,9 @@ import { ConfigModule, ConfigService } from '@nestjs/config';
       autoSchemaFile: true,
       playground: true,
     }),
+    UsersModule,
+    DepartmentsModule,
+    AuthModule,
   ],
   providers: [AppModuleResolver],
 })

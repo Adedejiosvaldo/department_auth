@@ -1,14 +1,15 @@
-version: '3.8'
+version: '3'
+
 services:
   postgres:
-    image: postgres:15
-    restart: always
-    environment:
-      - POSTGRES_USER=postgres
-      - POSTGRES_PASSWORD=postgres
-      - POSTGRES_DB=department_management
+    image: postgres:16-alpine
+    container_name: department-postgres
     ports:
       - '5432:5432'
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: department_management
     volumes:
       - postgres_data:/var/lib/postgresql/data
 
