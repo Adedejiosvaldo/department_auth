@@ -1,99 +1,180 @@
-<p align="center">
-  <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo-small.svg" width="120" alt="Nest Logo" /></a>
-</p>
-
-[circleci-image]: https://img.shields.io/circleci/build/github/nestjs/nest/master?token=abc123def456
-[circleci-url]: https://circleci.com/gh/nestjs/nest
-
-  <p align="center">A progressive <a href="http://nodejs.org" target="_blank">Node.js</a> framework for building efficient and scalable server-side applications.</p>
-    <p align="center">
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/v/@nestjs/core.svg" alt="NPM Version" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/l/@nestjs/core.svg" alt="Package License" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/dm/@nestjs/common.svg" alt="NPM Downloads" /></a>
-<a href="https://circleci.com/gh/nestjs/nest" target="_blank"><img src="https://img.shields.io/circleci/build/github/nestjs/nest/master" alt="CircleCI" /></a>
-<a href="https://coveralls.io/github/nestjs/nest?branch=master" target="_blank"><img src="https://coveralls.io/repos/github/nestjs/nest/badge.svg?branch=master#9" alt="Coverage" /></a>
-<a href="https://discord.gg/G7Qnnhy" target="_blank"><img src="https://img.shields.io/badge/discord-online-brightgreen.svg" alt="Discord"/></a>
-<a href="https://opencollective.com/nest#backer" target="_blank"><img src="https://opencollective.com/nest/backers/badge.svg" alt="Backers on Open Collective" /></a>
-<a href="https://opencollective.com/nest#sponsor" target="_blank"><img src="https://opencollective.com/nest/sponsors/badge.svg" alt="Sponsors on Open Collective" /></a>
-  <a href="https://paypal.me/kamilmysliwiec" target="_blank"><img src="https://img.shields.io/badge/Donate-PayPal-ff3f59.svg" alt="Donate us"/></a>
-    <a href="https://opencollective.com/nest#sponsor"  target="_blank"><img src="https://img.shields.io/badge/Support%20us-Open%20Collective-41B883.svg" alt="Support us"></a>
-  <a href="https://twitter.com/nestframework" target="_blank"><img src="https://img.shields.io/twitter/follow/nestframework.svg?style=social&label=Follow" alt="Follow us on Twitter"></a>
-</p>
-  <!--[![Backers on Open Collective](https://opencollective.com/nest/backers/badge.svg)](https://opencollective.com/nest#backer)
-  [![Sponsors on Open Collective](https://opencollective.com/nest/sponsors/badge.svg)](https://opencollective.com/nest#sponsor)-->
+# Project Title: NestJS GraphQL API with Authentication
 
 ## Description
 
-[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
+A robust backend API built with NestJS, GraphQL, TypeORM, and PostgreSQL. Features include JWT-based authentication and CRUD operations for managing departments and sub-departments.
 
-## Project setup
+## Table of Contents
 
-```bash
-$ pnpm install
+- [Technical Stack](#technical-stack)
+- [Features](#features)
+- [Prerequisites](#prerequisites)
+- [Installation](#installation)
+- [Environment Variables](#environment-variables)
+- [Database Setup](#database-setup)
+- [Running the Application](#running-the-application)
+- [API Documentation](#api-documentation)
+- [Testing](#testing)
+- [Deployment](#deployment)
+- [Security Considerations](#security-considerations)
+
+## Technical Stack
+
+- **Framework:** NestJS
+- **API:** GraphQL
+- **ORM:** TypeORM
+- **Database:** PostgreSQL
+- **Language:** TypeScript
+- **Authentication:** JWT (JSON Web Tokens)
+
+## Features
+
+- **Authentication:** Secure user login using JWT.
+- **Authorization:** Protected GraphQL resolvers/mutations.
+- **Department Management:** Full CRUD operations (Create, Read, Update, Delete) for departments.
+- **Sub-Department Management:** Support for hierarchical data structures (departments containing sub-departments).
+- **Validation:** Input validation for GraphQL operations.
+
+## Prerequisites
+
+- Node.js (v18 or later recommended)
+- npm or yarn
+- PostgreSQL Server
+- Git
+
+## Installation
+
+1.  **Clone the repository:**
+
+    ```bash
+    git clone <repository-url>
+    cd <repository-directory>
+    ```
+
+2.  **Install dependencies:**
+    ```bash
+    npm install
+    # or
+    yarn install
+    ```
+
+## Environment Variables
+
+Create a `.env` file in the root directory and add the following environment variables. Replace the placeholder values with your actual configuration.
+
+```env
+# Application Port
+PORT=3000
+
+# Database Configuration
+DB_TYPE=postgres
+DB_HOST=localhost
+DB_PORT=5432
+DB_USERNAME=your_db_user
+DB_PASSWORD=your_db_password
+DB_DATABASE=your_db_name
+
+# JWT Configuration
+JWT_SECRET=your_strong_jwt_secret
+JWT_EXPIRATION_TIME=3600s # e.g., 1 hour
+
+# Add any other environment-specific variables here
 ```
 
-## Compile and run the project
+**Important:** Ensure `your_strong_jwt_secret` is a complex, unique string and kept confidential.
+
+## Database Setup
+
+1.  **Ensure PostgreSQL is running.**
+2.  **Create a database** with the name specified in your `.env` file (`DB_DATABASE`).
+3.  **Run TypeORM migrations** (if applicable) or synchronize the schema:
+    - TypeORM synchronization (for development only) is typically handled by NestJS based on your `ormconfig.js` or module configuration (`synchronize: true`). **Caution:** Do not use `synchronize: true` in production.
+    - For production, you would typically generate and run migration files:
+      ```bash
+      # Example commands (may vary based on your setup)
+      npm run typeorm migration:generate -- -n InitialMigration
+      npm run typeorm migration:run
+      ```
+
+## Running the Application
+
+1.  **Start the development server:**
+
+    ```bash
+    npm run start:dev
+    # or
+    yarn start:dev
+    ```
+
+    The application will be running on the port specified in your `.env` file (default: `http://localhost:3000`).
+
+2.  **Build for production:**
+
+    ```bash
+    npm run build
+    ```
+
+3.  **Run in production mode:**
+    ```bash
+    npm run start:prod
+    ```
+
+## API Documentation
+
+Once the application is running, access the GraphQL Playground in your browser:
+
+`http://localhost:<PORT>/graphql` (replace `<PORT>` with your application's port)
+
+The Playground provides an interactive environment to explore the GraphQL schema, run queries, and execute mutations.
+
+### Example Operations
+
+_(Refer to the GraphQL Schema section in the original prompt or explore via the Playground for detailed operations like `login`, `createDepartment`, `getDepartments`, etc.)_
+
+## Testing
+
+Run the test suite using:
 
 ```bash
-# development
-$ pnpm run start
-
-# watch mode
-$ pnpm run start:dev
-
-# production mode
-$ pnpm run start:prod
+npm test
+# or
+yarn test
 ```
 
-## Run tests
+_(Add details about specific test types if available, e.g., unit, integration, e2e)_
 
-```bash
-# unit tests
-$ pnpm run test
+**Testing Checklist:**
 
-# e2e tests
-$ pnpm run test:e2e
-
-# test coverage
-$ pnpm run test:cov
-```
+- Authentication flow (login, token verification)
+- CRUD operations for Departments and SubDepartments
+- Input validation checks
+- Error handling for invalid operations or data
+- Performance under load (optional)
 
 ## Deployment
 
-When you're ready to deploy your NestJS application to production, there are some key steps you can take to ensure it runs as efficiently as possible. Check out the [deployment documentation](https://docs.nestjs.com/deployment) for more information.
+This application is configured for deployment on platforms like Render.com.
 
-If you are looking for a cloud-based platform to deploy your NestJS application, check out [Mau](https://mau.nestjs.com), our official platform for deploying NestJS applications on AWS. Mau makes deployment straightforward and fast, requiring just a few simple steps:
+**Requirements:**
 
-```bash
-$ pnpm install -g mau
-$ mau deploy
-```
+- A provisioned PostgreSQL database accessible by the deployment environment.
+- Configuration of environment variables (as listed in the [Environment Variables](#environment-variables) section) within the deployment platform's settings.
+- Build command: `npm run build` (or `yarn build`)
+- Start command: `npm run start:prod` (or `yarn start:prod`)
 
-With Mau, you can deploy your application in just a few clicks, allowing you to focus on building features rather than managing infrastructure.
+_(Add platform-specific instructions if necessary)_
 
-## Resources
+## Security Considerations
 
-Check out a few resources that may come in handy when working with NestJS:
+- **Password Hashing:** User passwords must be securely hashed (e.g., using bcrypt) before storing.
+- **JWT Security:** Protect your `JWT_SECRET` and consider using appropriate expiration times (`JWT_EXPIRATION_TIME`). Implement refresh token strategies for better security.
+- **Rate Limiting:** Implement rate limiting on API endpoints to prevent abuse.
+- **Input Sanitization/Validation:** Thoroughly validate and sanitize all user inputs to prevent injection attacks (SQL, XSS, etc.). TypeORM and class-validator help, but diligence is required.
+- **HTTPS:** Always use HTTPS in production.
+- **Dependency Management:** Keep dependencies updated to patch known vulnerabilities.
 
-- Visit the [NestJS Documentation](https://docs.nestjs.com) to learn more about the framework.
-- For questions and support, please visit our [Discord channel](https://discord.gg/G7Qnnhy).
-- To dive deeper and get more hands-on experience, check out our official video [courses](https://courses.nestjs.com/).
-- Deploy your application to AWS with the help of [NestJS Mau](https://mau.nestjs.com) in just a few clicks.
-- Visualize your application graph and interact with the NestJS application in real-time using [NestJS Devtools](https://devtools.nestjs.com).
-- Need help with your project (part-time to full-time)? Check out our official [enterprise support](https://enterprise.nestjs.com).
-- To stay in the loop and get updates, follow us on [X](https://x.com/nestframework) and [LinkedIn](https://linkedin.com/company/nestjs).
-- Looking for a job, or have a job to offer? Check out our official [Jobs board](https://jobs.nestjs.com).
+_(Add other relevant security points like CORS configuration, helmet.js usage, etc.)_
 
-## Support
+---
 
-Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
-
-## Stay in touch
-
-- Author - [Kamil Myśliwiec](https://twitter.com/kammysliwiec)
-- Website - [https://nestjs.com](https://nestjs.com/)
-- Twitter - [@nestframework](https://twitter.com/nestframework)
-
-## License
-
-Nest is [MIT licensed](https://github.com/nestjs/nest/blob/master/LICENSE).
+_(Optional: Add sections for Contributing Guidelines and License)_
