@@ -1,0 +1,72 @@
+# ------------------------------------------------------
+# THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
+# ------------------------------------------------------
+
+type AuthPayload {
+  token: String!
+  user: User!
+}
+
+input CreateDepartmentInput {
+  name: String!
+  subDepartments: [CreateSubDepartmentInput!]
+}
+
+input CreateSubDepartmentInput {
+  name: String!
+}
+
+"""
+A date-time string at UTC, such as 2019-12-03T09:54:33Z, compliant with the date-time format.
+"""
+scalar DateTime
+
+type Department {
+  createdAt: DateTime!
+  id: ID!
+  name: String!
+  subDepartments: [SubDepartment!]
+  updatedAt: DateTime!
+}
+
+input LoginInput {
+  password: String!
+  username: String!
+}
+
+type Mutation {
+  createDepartment(input: CreateDepartmentInput!): Department!
+  deleteDepartment(id: ID!): Boolean!
+  login(input: LoginInput!): AuthPayload!
+  updateDepartment(id: ID!, input: UpdateDepartmentInput!): Department!
+}
+
+input PaginationInput {
+  limit: Int! = 10
+  page: Int! = 1
+}
+
+type Query {
+  getDepartment(id: ID!): Department!
+  getDepartments(pagination: PaginationInput): [Department!]!
+  sayHello: String!
+}
+
+type SubDepartment {
+  createdAt: DateTime!
+  department: Department!
+  id: ID!
+  name: String!
+  updatedAt: DateTime!
+}
+
+input UpdateDepartmentInput {
+  name: String
+}
+
+type User {
+  createdAt: DateTime!
+  id: ID!
+  updatedAt: DateTime!
+  username: String!
+}
