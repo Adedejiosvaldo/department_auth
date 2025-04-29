@@ -15,9 +15,9 @@ import { AuthResolver } from './auth.resolver';
       imports: [ConfigModule],
       inject: [ConfigService],
       useFactory: (configService: ConfigService) => ({
-        secret: configService.get('JWT_SECRET'),
+        secret: configService.get('JWT_SECRET') || 'default_secret_key',
         signOptions: {
-          expiresIn: configService.get('JWT_EXPIRATION_TIME'),
+          expiresIn: configService.get('JWT_EXPIRATION_TIME') || '1h',
         },
       }),
     }),
