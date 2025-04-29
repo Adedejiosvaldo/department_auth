@@ -8,11 +8,26 @@ import { UsersModule } from './users/users.module';
 import { DepartmentsModule } from './departments/departments.module';
 import { AuthModule } from './auth/auth.module';
 import { join } from 'path';
+import * as Joi from 'joi';
 
 @Module({
   imports: [
     ConfigModule.forRoot({
       isGlobal: true,
+      validationSchema: Joi.object({
+        DB_HOST: Joi.string().required(),
+        DB_PORT: Joi.number().default(5432),
+        DB_USERNAME: Joi.string().required(),
+        DB_PASSWORD: Joi.string().required(),
+        DB_DATABASE: Joi.string().required(),
+        DB_SSL: Joi.boolean().default(false),
+        DB_CONNECTION_TIMEOUT: Joi.number().default(60000),
+        JWT_SECRET: Joi.string().required(),
+        JWT_EXPIRATION_TIME: Joi.string().required(),
+        NODE_ENV: Joi.string()
+          .valid('development', 'production', 'test')
+          .default('development'),
+      }),
     }),
     TypeOrmModule.forRootAsync({
       imports: [ConfigModule],
