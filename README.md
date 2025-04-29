@@ -1,4 +1,4 @@
-# Project Title: NestJS GraphQL API with Authentication
+# NestJS GraphQL API with Authentication
 
 ## Description
 
@@ -47,8 +47,8 @@ A robust backend API built with NestJS, GraphQL, TypeORM, and PostgreSQL. Featur
 1.  **Clone the repository:**
 
     ```bash
-    git clone <repository-url>
-    cd <repository-directory>
+    git clone https://github.com/Adedejiosvaldo/department_auth
+    cd department_auth
     ```
 
 2.  **Install dependencies:**
@@ -60,7 +60,7 @@ A robust backend API built with NestJS, GraphQL, TypeORM, and PostgreSQL. Featur
 
 ## Environment Variables
 
-Create a `.env` file in the root directory and add the following environment variables. Replace the placeholder values with your actual configuration.
+A `.env` file should be created in the root directory with the following environment variables. The placeholder values should be replaced with actual configuration.
 
 ```env
 # Application Port
@@ -81,20 +81,7 @@ JWT_EXPIRATION_TIME=3600s # e.g., 1 hour
 # Add any other environment-specific variables here
 ```
 
-**Important:** Ensure `your_strong_jwt_secret` is a complex, unique string and kept confidential.
-
-## Database Setup
-
-1.  **Ensure PostgreSQL is running.**
-2.  **Create a database** with the name specified in your `.env` file (`DB_DATABASE`).
-3.  **Run TypeORM migrations** (if applicable) or synchronize the schema:
-    - TypeORM synchronization (for development only) is typically handled by NestJS based on your `ormconfig.js` or module configuration (`synchronize: true`). **Caution:** Do not use `synchronize: true` in production.
-    - For production, you would typically generate and run migration files:
-      ```bash
-      # Example commands (may vary based on your setup)
-      npm run typeorm migration:generate -- -n InitialMigration
-      npm run typeorm migration:run
-      ```
+**Important:** The `JWT_SECRET` should be a complex, unique string and kept confidential.
 
 ## Running the Application
 
@@ -106,7 +93,7 @@ JWT_EXPIRATION_TIME=3600s # e.g., 1 hour
     yarn start:dev
     ```
 
-    The application will be running on the port specified in your `.env` file (default: `http://localhost:3000`).
+    The application will run on the port specified in the `.env` file (default: `http://localhost:3000`).
 
 2.  **Build for production:**
 
@@ -121,35 +108,25 @@ JWT_EXPIRATION_TIME=3600s # e.g., 1 hour
 
 ## API Documentation
 
-Once the application is running, access the GraphQL Playground in your browser:
+Once the application is running, the GraphQL Playground can be accessed in a browser:
 
-`http://localhost:<PORT>/graphql` (replace `<PORT>` with your application's port)
+`http://localhost:<PORT>/graphql` (replace `<PORT>` with the application's port)
 
 The Playground provides an interactive environment to explore the GraphQL schema, run queries, and execute mutations.
 
 ### Example Operations
 
-_(Refer to the GraphQL Schema section in the original prompt or explore via the Playground for detailed operations like `login`, `createDepartment`, `getDepartments`, etc.)_
+_(Refer to the GraphQL Schema section or explore via the Playground for detailed operations like `login`, `createDepartment`, `getDepartments`, etc.)_
 
 ## Testing
 
-Run the test suite using:
+The test suite can be run using:
 
 ```bash
 npm test
 # or
 yarn test
 ```
-
-_(Add details about specific test types if available, e.g., unit, integration, e2e)_
-
-**Testing Checklist:**
-
-- Authentication flow (login, token verification)
-- CRUD operations for Departments and SubDepartments
-- Input validation checks
-- Error handling for invalid operations or data
-- Performance under load (optional)
 
 ## Deployment
 
@@ -161,20 +138,3 @@ This application is configured for deployment on platforms like Render.com.
 - Configuration of environment variables (as listed in the [Environment Variables](#environment-variables) section) within the deployment platform's settings.
 - Build command: `npm run build` (or `yarn build`)
 - Start command: `npm run start:prod` (or `yarn start:prod`)
-
-_(Add platform-specific instructions if necessary)_
-
-## Security Considerations
-
-- **Password Hashing:** User passwords must be securely hashed (e.g., using bcrypt) before storing.
-- **JWT Security:** Protect your `JWT_SECRET` and consider using appropriate expiration times (`JWT_EXPIRATION_TIME`). Implement refresh token strategies for better security.
-- **Rate Limiting:** Implement rate limiting on API endpoints to prevent abuse.
-- **Input Sanitization/Validation:** Thoroughly validate and sanitize all user inputs to prevent injection attacks (SQL, XSS, etc.). TypeORM and class-validator help, but diligence is required.
-- **HTTPS:** Always use HTTPS in production.
-- **Dependency Management:** Keep dependencies updated to patch known vulnerabilities.
-
-_(Add other relevant security points like CORS configuration, helmet.js usage, etc.)_
-
----
-
-_(Optional: Add sections for Contributing Guidelines and License)_
